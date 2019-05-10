@@ -12,7 +12,7 @@ namespace BlogService.IntegrationTest.MockRepositories
     public class MBlogsRepository : IBlogsRepository
     {
         private Author _author;
-        private IEnumerable<Blog> _blogs; 
+        private ICollection<Blog> _blogs;
 
         public MBlogsRepository()
         {
@@ -20,9 +20,14 @@ namespace BlogService.IntegrationTest.MockRepositories
             _blogs = CreateTestBlog();
         }
 
-        public async Task<IEnumerable<Blog>> GetAll()
+        public async Task<IEnumerable<Blog>> GetAllAsync()
         {
             return await Task.Run(() => _blogs);
+        }
+
+        public async Task<string> AddBlogAsync(Blog blog)
+        {
+            return await Task.Run(() => AddBlog(blog));
         }
 
         private Blog CreateBlog(string title, string description, string body)
@@ -38,6 +43,12 @@ namespace BlogService.IntegrationTest.MockRepositories
             return blog;
         }
 
+        private string AddBlog(Blog blog)
+        {
+            _blogs.Add(blog);
+            return blog.ID;
+        }
+
         private Author CreateTestAuthor()
         {
             return new Author
@@ -51,7 +62,7 @@ namespace BlogService.IntegrationTest.MockRepositories
             };
         }
 
-        private IEnumerable<Blog> CreateTestBlog()
+        private ICollection<Blog> CreateTestBlog()
         {
             ICollection<Blog> blogs = new List<Blog>();
             blogs.Add(CreateBlog(

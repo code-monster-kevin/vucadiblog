@@ -28,5 +28,13 @@ namespace BlogService.Controllers
             // Assert
             Assert.Equal(2, blogs.Count);
         }
+
+        [Fact]
+        public async void CreateNewBlog()
+        {
+            string blogId = await _blogsController.AddBlog("api blog", "a blog added from api", "Testing adding a new blog from API");
+
+            Assert.NotNull(blogId);
+        }
     }
 }

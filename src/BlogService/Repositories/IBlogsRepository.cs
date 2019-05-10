@@ -7,6 +7,7 @@ namespace BlogService.Repositories
 {
     public interface IBlogsRepository
     {
-        Task<IEnumerable<Blog>> GetAll();
+        Task<IEnumerable<Blog>> GetAllAsync();
+        Task<string> AddBlogAsync(Blog blog);
     }
 }
