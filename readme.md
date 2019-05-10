@@ -1,4 +1,4 @@
-# ![BlogService Example]
+# BlogService Example
 > ### ASP.NET Core codebase used for building a Dotnet Core WebApi project
 
 This codebase was created for training purposes on building a ASP.NET Core WebApi application 
