@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BlogService.Repositories;
 using BlogService.Models;
@@ -20,14 +21,15 @@ namespace BlogService.IntegrationTest.MockRepositories
             _blogs = CreateTestBlog();
         }
 
-        public async Task<IEnumerable<Blog>> GetAllAsync()
+        public async Task<IQueryable<Blog>> GetAllAsync()
         {
-            return await Task.Run(() => _blogs);
+            return await Task.Run(() => _blogs.AsQueryable());
         }
 
         public async Task<string> AddBlogAsync(Blog blog)
         {
-            return await Task.Run(() => AddBlog(blog));
+            await Task.Run(() => _blogs.Add(blog));
+            return blog.ID;
         }
 
         private Blog CreateBlog(string title, string description, string body)
@@ -41,12 +43,6 @@ namespace BlogService.IntegrationTest.MockRepositories
             blog.Author = _author;
 
             return blog;
-        }
-
-        private string AddBlog(Blog blog)
-        {
-            _blogs.Add(blog);
-            return blog.ID;
         }
 
         private Author CreateTestAuthor()
