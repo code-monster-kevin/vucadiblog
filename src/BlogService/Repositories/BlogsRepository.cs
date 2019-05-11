@@ -23,13 +23,11 @@ namespace BlogService.Repositories
 
         public async Task<string> AddBlogAsync(Blog blog)
         {
-            await Task.Run(() => _context.Add(blog));
+            await Task.Run(() => {
+                _context.Add(blog);
+                _context.SaveChangesAsync();
+            });
             return blog.ID;
-        }
-
-        public async Task<bool> Save()
-        {
-            return await _context.SaveChangesAsync() >= 0;
         }
     }
 
