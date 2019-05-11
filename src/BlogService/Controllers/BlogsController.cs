@@ -20,7 +20,7 @@ namespace BlogService.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Blog>> GetBlogs()
+        public async Task<IQueryable<Blog>> GetBlogs()
         {
             return await _blogsRepository.GetAllAsync();
         }

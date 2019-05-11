@@ -10,7 +10,7 @@ namespace BlogService.Persistence
     public class BlogServiceContext : DbContext
     {
         private IDbContextTransaction _currentTransaction;
-        public BlogServiceContext(DbContextOptions options)
+        public BlogServiceContext(DbContextOptions<BlogServiceContext> options)
             : base(options)
         {
         }
